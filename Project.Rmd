@@ -1,0 +1,68 @@
+---
+title: "Stats Inference Project"
+author: "nkvasg"
+date: "Friday, March 20, 2015"
+output: html_document
+---
+
+The exponential distribution can be simulated in R with rexp(n, lambda) where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. In this simulation, we investigate the distribution of averages of 40 numbers sampled from exponential distribution with lambda=0.2.
+
+The code below is to do a thousand simulations with 40 exponentials.
+
+```{r}
+# Data 
+lambda <- 0.2
+nsim <- 1000
+n <- 40
+
+# Set seed for reproducibility
+set.seed(10)
+sim <- matrix(rexp(nsim*n, lambda), nsim, n)
+row_means <- rowMeans(sim)
+
+```
+
+The theoretical mean of the exponential distribution will be 1/lambda.
+
+
+The distribution of sample means is as in the graph below
+
+```{r, echo=FALSE}
+## ------------------------------------------------------------------------
+# plot the histogram of averages
+hist(row_means, breaks=n, prob=TRUE,
+     main="Distribution of averages of samples,
+     drawn from exponential distribution with lambda=0.2",
+     xlab="")
+
+# density of the averages of samples
+lines(density(row_means))
+
+# theoretical center of distribution
+abline(v=1/lambda, untf = FALSE, col="red")
+```
+
+The variance of the sample in comparison with the theoretical variance of the distribution:
+
+```{r}
+# Variance
+sd <- 1/lambda/sqrt(n) 
+var1 <- (1/lambda/sqrt(n))^2
+var2 <- var(row_means)
+var1
+var2
+
+```
+
+
+The distribution of sample means is centered at 4.9866 and the theoretical center of the distribution is 5. The variance of sample means is 0.654 where the theoretical variance of the distribution is 0.625.
+
+Due to the central limit theorem, the exponential should follow normal distribution. The q-q plot below also suggests the normality.
+
+```{r, echo=FALSE}
+
+qqnorm(row_means,col="red" ) #normal QQ plot
+qqline(row_means,lwd=3) ##theoretical line
+
+```
+
