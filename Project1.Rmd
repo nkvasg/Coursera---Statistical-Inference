@@ -2,7 +2,7 @@
 title: "Stats Inference Project"
 author: "nkvasg"
 date: "Friday, March 20, 2015"
-output: html_document
+output: word_document
 ---
 
 The exponential distribution can be simulated in R with rexp(n, lambda) where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. In this simulation, we investigate the distribution of averages of 40 numbers sampled from exponential distribution with lambda=0.2.
